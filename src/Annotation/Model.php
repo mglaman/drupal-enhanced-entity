@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace EntityEnhancements;
+namespace EntityEnhancements\Annotation;
 
 use EntityEnhancements\Entity\ModelEntityType;
 use Drupal\Core\Entity\Annotation\ContentEntityType;
