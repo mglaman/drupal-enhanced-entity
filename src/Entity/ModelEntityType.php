@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace mglaman\DrupalEnhancedEntity\Entity;
+namespace EntityEnhancements\Entity;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Entity\ContentEntityDeleteForm;
@@ -21,7 +21,7 @@ use Drupal\entity\Routing\DefaultHtmlRouteProvider;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\user\EntityOwnerInterface;
-use mglaman\DrupalEnhancedEntity\Form\ModelContentEntityForm;
+use EntityEnhancements\Form\ModelContentEntityForm;
 use Symfony\Component\String\Inflector\EnglishInflector;
 
 final class ModelEntityType extends ContentEntityType
@@ -36,6 +36,7 @@ final class ModelEntityType extends ContentEntityType
                 throw new \InvalidArgumentException();
             }
             $class_path = explode('\\', $definition['class']);
+            // @todo can symfony/string be used instead.
             $value = preg_replace('/\s+/u', '', ucwords(array_pop($class_path)));
             if ($value !== null) {
                 $definition['label'] = preg_replace('/(.)(?=[A-Z])/u', '$1 ', $value);
@@ -44,7 +45,6 @@ final class ModelEntityType extends ContentEntityType
 
         parent::__construct($definition);
 
-      // @todo there is only an English and French inflector...
         $inflector = new EnglishInflector();
         $label = $this->label;
         if ($label instanceof TranslatableMarkup) {

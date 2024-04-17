@@ -1,4 +1,4 @@
-# drupal-enhanced-entity
+# drupal-entity-enhancements
 DX improvements for creating entity types
 
 
@@ -15,7 +15,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\user\EntityOwnerInterface;
 
 /**
- * @\mglaman\DrupalEnhancedEntity\Annotation\Model(
+ * @\EntityEnhancements\Annotation\Model(
  *  id = "my_custom_entity",
  *  owner_entity_access = true,
  *  admin_ui_routes = false,

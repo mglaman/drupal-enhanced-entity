@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace mglaman\DrupalEnhancedEntity;
+namespace EntityEnhancements;
 
-use mglaman\DrupalEnhancedEntity\Entity\ModelEntityType;
+use EntityEnhancements\Entity\ModelEntityType;
 use Drupal\Core\Entity\Annotation\ContentEntityType;
 
 /**

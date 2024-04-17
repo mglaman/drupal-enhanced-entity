@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace mglaman\DrupalEnhancedEntity\Form;
+namespace EntityEnhancements\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;

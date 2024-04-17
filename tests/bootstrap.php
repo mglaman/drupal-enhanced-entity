@@ -19,6 +19,10 @@ $loader->addPsr4('Drupal\\sqlite\\', __DIR__ . '/../vendor/drupal/core/modules/s
 $loader->addPsr4('Drupal\\Tests\\user\\', __DIR__ . '/../vendor/drupal/core/modules/user/tests/src');
 $loader->addPsr4('Drupal\\user\\', __DIR__ . '/../vendor/drupal/core/modules/user/src');
 $loader->addPsr4('Drupal\\entity\\', __DIR__ . '/../vendor/drupal/entity/src');
+$loader->addPsr4(
+    'Drupal\\entity_test\\',
+    __DIR__ . '/../vendor/drupal/core/modules/system/tests/modules/entity_test/src'
+);
 
 if (class_exists(ClassWriter::class)) {
     ClassWriter::mutateTestBase($loader);
