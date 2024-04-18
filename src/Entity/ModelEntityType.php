@@ -111,7 +111,6 @@ final class ModelEntityType extends ContentEntityType
                 EntityListBuilder::class
             );
 
-          // @todo make Admin one a flag.
             $default_route_provider = DefaultHtmlRouteProvider::class;
             if ($this->get('admin_ui_routes')) {
                 $default_route_provider = AdminHtmlRouteProvider::class;

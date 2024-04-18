@@ -5,10 +5,17 @@ declare(strict_types=1);
 namespace EntityEnhancements\Tests;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
+use Drupal\Core\Entity\EntityAccessControlHandler as CoreEntityAccessControlHandler;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageDefault;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\StringTranslation\Translator\StaticTranslation;
+use Drupal\entity\EntityAccessControlHandler;
+use Drupal\entity\EntityPermissionProvider;
+use Drupal\entity\QueryAccess\QueryAccessHandler;
+use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
+use Drupal\entity\UncacheableEntityAccessControlHandler;
+use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\entity_test\Entity\EntityTest;
 use EntityEnhancements\Entity\ModelEntityType;
 use PHPUnit\Framework\TestCase;
@@ -125,5 +132,40 @@ final class ModelEntityTypeTest extends TestCase
                 ],
             ]
         ];
+    }
+
+    public function testEnhancedEntityAccess(): void
+    {
+        $sut = new ModelEntityType([
+            'id' => 'foo_bar',
+            'label' => 'Foo bar',
+            'class' => EntityTest::class,
+        ]);
+        self::assertEquals(CoreEntityAccessControlHandler::class, $sut->getHandlerClass('access'));
+        self::assertEquals('', $sut->getHandlerClass('query_access'));
+        self::assertEquals('', $sut->getHandlerClass('permission_provider'));
+
+        $sut = new ModelEntityType([
+            'id' => 'foo_bar',
+            'label' => 'Foo bar',
+            'class' => EntityTest::class,
+            'enhanced_entity_access' => true,
+        ]);
+        self::assertEquals(EntityAccessControlHandler::class, $sut->getHandlerClass('access'));
+        self::assertEquals(QueryAccessHandler::class, $sut->getHandlerClass('query_access'));
+        self::assertEquals(EntityPermissionProvider::class, $sut->getHandlerClass('permission_provider'));
+    }
+
+    public function testEntityOwnerAccess(): void
+    {
+        $sut = new ModelEntityType([
+            'id' => 'foo_bar',
+            'label' => 'Foo bar',
+            'class' => EntityTest::class,
+            'owner_entity_access' => true,
+        ]);
+        self::assertEquals(UncacheableEntityAccessControlHandler::class, $sut->getHandlerClass('access'));
+        self::assertEquals(UncacheableQueryAccessHandler::class, $sut->getHandlerClass('query_access'));
+        self::assertEquals(UncacheableEntityPermissionProvider::class, $sut->getHandlerClass('permission_provider'));
     }
 }
